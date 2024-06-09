@@ -163,7 +163,9 @@ public class Calculator implements ActionListener{
         }
 
         if(e.getSource() == negButton) {
-            
+            if(textfield.getText().equals("")) {
+                textfield.setText("-");
+            }
             Double temp = Double.parseDouble(textfield.getText());
             temp *= -1;
             textfield.setText(String.valueOf(temp));

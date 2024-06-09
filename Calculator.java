@@ -12,10 +12,11 @@ public class Calculator implements ActionListener{
 	JButton decButton, equButton, delButton, clrButton, negButton;
 	JPanel panel;
 	
-	Font myFont = new Font("Segoe", Font.PLAIN, 30);
+	Font myFont = new Font("Verdana", Font.PLAIN, 30);
 	
 	double num1=0,num2=0,result=0;
 	char operator;
+    String history;
 
     Calculator() {
         frame = new JFrame("Calculator");
@@ -91,6 +92,7 @@ public class Calculator implements ActionListener{
 		frame.add(delButton);
 		frame.add(clrButton);
 		frame.add(textfield);
+       
 		frame.setVisible(true);
     }
 
@@ -100,14 +102,16 @@ public class Calculator implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        history = "";
         for(int i = 0; i < 10; i++) {
             if(e.getSource() == numberButtons[i]) {
-                if(!(textfield.getText().equals(""))) {
+                if(!(textfield.getText().isEmpty()) && (history.contains("="))) {
                     textfield.setText("");
                 }
                 textfield.setText(textfield.getText().concat(String.valueOf(i)));
             }
         }
+        
         if(e.getSource() == decButton) { 
             textfield.setText(textfield.getText().concat("."));
         }
@@ -115,21 +119,25 @@ public class Calculator implements ActionListener{
             num1 = Double.parseDouble(textfield.getText());
             operator = '+';
             textfield.setText("");
+            history.concat(num1 + "+");
         }
         if(e.getSource() == subButton) {
             num1 = Double.parseDouble(textfield.getText());
             operator = '-';
             textfield.setText("");
+            history.concat(num1 + "-");
         }
         if(e.getSource() == mulButton) {
             num1 = Double.parseDouble(textfield.getText());
             operator = '*';
             textfield.setText("");
+            history.concat(num1 + "*");
         }
         if(e.getSource() == divButton) {
             num1 = Double.parseDouble(textfield.getText());
             operator = '/';
             textfield.setText("");
+            history.concat(num1 + "/");
         }
 
         if(e.getSource() == equButton) {
@@ -150,6 +158,7 @@ public class Calculator implements ActionListener{
                 break; 
             }
             textfield.setText(String.valueOf(result));
+            history.concat((String.valueOf(num2 + " =")));
             num1 = result;
         }
 
@@ -173,5 +182,6 @@ public class Calculator implements ActionListener{
             temp *= -1;
             textfield.setText(String.valueOf(temp));
         }
+        System.out.print(history);
     }
 }

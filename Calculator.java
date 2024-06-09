@@ -35,7 +35,7 @@ public class Calculator implements ActionListener{
         decButton = new JButton(".");
         equButton = new JButton("=");
         delButton = new JButton("Del");
-        clrButton = new JButton("CLR");
+        clrButton = new JButton("Clr");
         negButton = new JButton("(-)");
 
         functionButtons[0] = addButton;
@@ -102,6 +102,9 @@ public class Calculator implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         for(int i = 0; i < 10; i++) {
             if(e.getSource() == numberButtons[i]) {
+                if(!(textfield.getText().equals(""))) {
+                    textfield.setText("");
+                }
                 textfield.setText(textfield.getText().concat(String.valueOf(i)));
             }
         }
